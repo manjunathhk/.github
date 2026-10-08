@@ -69,14 +69,14 @@ permissions: {}
 jobs:
   issue:
     if: github.event_name == 'issues'
-    uses: manjunathhk/.github/.github/workflows/issue-first-issue.yml@main
+    uses: manjunathhk/.github/.github/workflows/issue-first-issue.yml@v1
     permissions:
       contents: read
       issues: write
 
   pr:
     if: github.event_name == 'pull_request'
-    uses: manjunathhk/.github/.github/workflows/issue-first-pr.yml@main
+    uses: manjunathhk/.github/.github/workflows/issue-first-pr.yml@v1
     permissions:
       contents: read
       issues: read
