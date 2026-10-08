@@ -1,0 +1,50 @@
+# Reusable workflow: validates an issue for the issue-first process.
+# Labels it `ready-for-dev` or `needs-refinement` and keeps one sticky comment.
+# Never fails the run: an incomplete issue is labelled, not blocked.
+name: Issue-first / issue gate
+
+on:
+  workflow_call:
+    inputs:
+      min-length:
+        description: Minimum characters for Summary and Acceptance Criteria
+        type: number
+        default: 20
+      skip-labels:
+        description: Comma-separated labels that exempt an issue from validation
+        type: string
+        default: "epic,question,discussion"
+      kit-ref:
+        description: Branch or tag of manjunathhk/.github to load the validator from
+        type: string
+        default: main
+
+permissions: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Load validator
+        uses: actions/checkout@v4
+        with:
+          repository: manjunathhk/.github
+          ref: ${{ inputs.kit-ref }}
+          path: .issue-first
+          sparse-checkout: actions/issue-first
+          persist-credentials: false
+
+      - name: Validate issue
+        uses: actions/github-script@v7
+        env:
+          MODE: issue
+          MIN_LENGTH: ${{ inputs.min-length }}
+          SKIP_LABELS: ${{ inputs.skip-labels }}
+        with:
+          script: |
+            const run = require(`${process.env.GITHUB_WORKSPACE}/.issue-first/actions/issue-first/validate.js`);
+            await run({ github, context, core });
