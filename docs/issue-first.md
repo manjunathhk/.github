@@ -54,7 +54,8 @@ Labels are created automatically on first use.
 - **Editing an issue does not re-run its PR's check.** After fixing the issue, re-run the failed `pr / validate` job (or push a commit).
 - **Sidebar links only count for PRs into the default branch.** For other targets, use `Closes #N` in the description.
 - **Same-repo issues only.** Cross-repo links (`other/repo#5`) are ignored by design.
-- **`@main` is a moving target.** Every repo picks up validator changes instantly. Once stable, tag the `.github` repo (`v1`) and pin both `uses:` and the `kit-ref` input to it.
+- **Pinned to `v1`.** Callers use `@v1`, and the reusable workflows load the validator from `v1` by default, so changes on `main` reach no repo until released. To release a compatible change: merge to `main`, then move the `v1` tag to that commit. For a breaking change: set the `kit-ref` defaults to `v2`, tag `v2`, then update each caller's `uses:` to `@v2`.
+- **`main` is protected.** Changes to this repo go through a pull request; every gated repo depends on it.
 - **Solo-maintainer caveat.** With branch protection, you are blocked by your own gate too. Leave "Do not allow bypassing" off if you want an emergency override as admin.
 
 ## Tuning
@@ -66,4 +67,4 @@ Inputs on the caller `uses:` jobs via `with:`:
 | `min-length` | `20` | both |
 | `skip-labels` | `epic,question,discussion` | issue |
 | `exempt-authors` | `dependabot[bot],renovate[bot]` | PR |
-| `kit-ref` | `main` | both |
+| `kit-ref` | `v1` | both |
