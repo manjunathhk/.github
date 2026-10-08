@@ -1,0 +1,52 @@
+name: Bug report
+description: Something is broken. Required before any fix is written.
+title: "[Bug]: "
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is wrong and what impact it has.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: Expected vs actual
+      placeholder: |
+        Expected: ...
+        Actual: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: How we will know it is fixed. Given / When / Then preferred; free text accepted.
+      placeholder: |
+        Given <the reproduction steps above>
+        When <the triggering action>
+        Then <the expected behaviour>
+        And a regression test covers this case
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Version / browser / OS / environment (dev, staging, prod)"
