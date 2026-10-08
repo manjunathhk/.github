@@ -1,0 +1,59 @@
+name: Feature / change request
+description: Any new behaviour or change. Required before any code is written.
+title: "[Feature]: "
+labels: ["type:feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Issue-first:** no branch, commit or PR until this issue is labelled `ready-for-dev`.
+        Write for a reader who was not in the conversation. Plain language beats jargon.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is needed and why, in two or three sentences.
+      placeholder: Users cannot export their card as PNG, so they screenshot it and lose quality.
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User story
+      description: Optional. Who benefits and how.
+      placeholder: As a <role>, I want <capability> so that <benefit>.
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: |
+        How we will know it is done. **Given / When / Then is preferred** (one scenario per behaviour, each maps to a test).
+        Free text is accepted but will get a non-blocking suggestion.
+      placeholder: |
+        Scenario: Export as PNG
+          Given a card is open in the editor
+          When I click "Export" and choose PNG
+          Then a PNG at 2x resolution downloads
+          And the file name matches the card title
+
+        Scenario: Export with no content
+          Given an empty card
+          When I click "Export"
+          Then the Export button is disabled with a tooltip explaining why
+    validations:
+      required: true
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of scope
+      description: What this issue deliberately does NOT cover. Stops scope creep in review.
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Technical notes
+      description: Optional. Constraints, dependencies, links, design decisions.
