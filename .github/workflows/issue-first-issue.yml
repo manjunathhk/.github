@@ -17,7 +17,7 @@ on:
       kit-ref:
         description: Branch or tag of manjunathhk/.github to load the validator from
         type: string
-        default: main
+        default: v1
 
 permissions: {}
 
